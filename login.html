@@ -36,15 +36,14 @@
     }
   </style>
 </head>
-
+<!--Creo el formulario de ingreso-->
 <body class="text-center">
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 08/08/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-    </div>
+    <form action="">
+      <label for="usuario">Usuario<br><input type="text" maxlength="15" alt="Maximo 15 caracteres" required></label>
+      <label for="contrseña">Contrseña<br><input type="password" id="usuario" minlength="6" alt="Minimo 6 caracteres" required></label>
+      <br><label for="submit"><button>Ingresar</button></label>
+    </form>
   </div>
 
   <script src="js/init.js"></script>
