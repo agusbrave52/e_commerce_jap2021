@@ -5,8 +5,9 @@ var currentProductArray = [];
 var currentSortCriteria = undefined;
 var minCount = undefined;
 var maxCount = undefined;
+var productos = [];
 
-function showProductList() {//la funcion recibe una lista la cual le damos el valor del response.data
+function showProductList() {
     let htmlContentToAppend = "";
     //creamos un for para mostrar la lista de productos
     for (let i = 0; i < currentProductArray.length; i++) {
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCTS_URL).then(response => {//usamos el getJSONData para traer los datos de los productos
         if (response.status === "ok") {
             sortAndShowProducts(ORDER_ASC_BY_COST, response.data);//usamos la funcion para traer los productos ya ordenados
+            productos = response.data
         }
     });
 })
@@ -136,3 +138,30 @@ document.getElementById("rangeFilterCount").addEventListener("click", function (
     showProductList();
 });
 
+function buscar(value){//creo la funcion buscar que muestra los productos encontrados tras ingresar una letra
+    if(value){// Si no esta vacio
+        const llave = ['name', 'description'];
+        let listaBuscada = buscarLlaves(productos, llave, value.toLowerCase());//guardo en una variable un array con los productos encontrados
+        if(listaBuscada.length == 0){//valida si encuentra algo
+            document.getElementById("prod-list-container").innerHTML = "";//si no encuentra nada deja los productos vacios
+        }
+        sortAndShowProducts(currentSortCriteria, listaBuscada);//muestro el nuevo array con los productos encontrados
+    }
+    else{
+        sortAndShowProducts(currentSortCriteria, productos);//si no muestro el array de los productos completo
+    }
+}
+   
+function buscarLlaves( lista, llave, letra ){//creo funcion para retornar un array con los productos encotrados tras la busqueda
+    let array = [];
+    llave.forEach((key) =>{// Recorrer llaves de busqueda
+        lista.forEach((list) =>{// Recorrer la lista
+            if (list[key].toLowerCase().includes(letra)){// validar si el indice tiene un valor semejante
+                if (array.indexOf(list) < 0 ){// validar si ya existe en el arreglo
+                    array.push(list);//meto en el array nuevo los productos encontrados
+                }
+            }
+        });
+    });
+    return array;//devuelvo el array ya con los productos encontrados
+}
