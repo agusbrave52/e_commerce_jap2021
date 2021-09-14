@@ -13,6 +13,24 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <style>
+      input[type = "radio"]{ /*selecciono los radio de los input*/
+      display:none;
+    }
+    .clasificacion{
+      direction: rtl;/*hago que funcione de derecha a izquierda*/
+      unicode-bidi: bidi-override;/*bidi de bidireccional*/
+    }
+    label:hover{
+      color:orange;/*cambio de color cuando paso el mouse por encima*/
+    }
+    label:hover ~ label{
+      color:orange;/*cambio de color los que estan antes del que tengo el mouse*/
+    }
+    input[type = "radio"]:checked ~ label{
+      color:orange;/*cambio de color el que esta check y los que estan destras*/
+    }
+  </style>
 </head>
 
 <body>
@@ -26,14 +44,104 @@
       <span class="d-flex py-2" id="nombreUsuario"></span>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 19/09/2021) y Entrega 4 (Fecha de entrega: 03/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+
+  <main role="main"><!--EMPIEZA CON LA INFO DE PRODUCTOS-->
+    <div class="container mt-5">
+      <div class="text-center p-4">
+        <h2>Descripción del producto</h2>
+        <p class="lead">Encontrarás aquí toda la información del producto seleccionado.</p>
+        <p class="small alert-warning py-3"><strong>Nota: </strong>por simplicidad, cualquiera sea el producto
+          seleccionado previamente, siempre se visualizará el presente: <strong class="productName"></strong>></strong>.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-9">
+          <h3 class="productName"></h3>
+        </div>
+        
+      </div>
+      <hr class="my-3">
+      <div class="row">
+        <div class="col">
+          <dt class="text-center">Imágenes</dt>
+          <dd><!--INSERTO CAROUSEL CON IMAGENES OBTENIDO DE BOOTSTRAP-->
+            <div id="controles" class="carousel slide carousel-fade" data-ride="carousel">
+              <div class="carousel-inner" id="productImagesGallery"><!--METO LAS IMAGENES A TRAVEZ DE JS-->
+              </div>
+              <a class="carousel-control-prev" href="#controles" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#controles" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+          </dd>
+          
+        </div>
+        <div class="col">
+          <div class="text-left pt-3">
+            <strong><h2 id="price"></h2></strong>
+          </div>
+          <dl>
+            <dt>Descripción</dt>
+            <dd>
+              <p id="productDescription"></p>
+            </dd>
+            <div class="row text-center">
+              <div class="col">
+                <dt>Cantidad de vendidos: <span id="soldCount"></span></dt>
+              </div>
+              <div class="col">
+                <dt>Categoria: <a href="/category-info.html" id="categoryProd"></a></dt>
+              </div>
+            </div>
+          </dl>
+        </div>
+      </div>
+      <h2 class="mt-4">Productos Relacionados</h2>
+      <hr class="my-3">
+      <div id="productosRelacionados"></div><!--INSERTO CARTA DE PRODUCTOS RELACIONADOS A TRAVEZ DE JS-->
+      <h2>Comentarios</h2>
+      <hr class="my-3">
+      <div id="cajaComentarios"><!--INSERTO COMENTARIOS A TRAVEZ DE JS-->
+      </div>
+      <form class="mt-3">
+        <div class="row">
+          <div class="col-2">
+            <strong>Comentario:</strong>
+          </div>
+          <div class="col-10">
+            <textarea name="" id="newComment" cols="50" rows="5"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+            <strong>Puntaje: </strong>
+          </div>
+          <div class="col-10">
+            <p class="clasificacion"><!--INSERTO ESTRELLAS PARA SELECCIONAR EL PUNTAJE EN FORMA DE RADIO-->
+              <input id="radio1" type="radio" name="estrellas" value="5"><!--LOS PONGO EN SENTIDO CONTRARIO PARA OBTENER BIEN LOS VALORES-->
+                <label class="fa fa-star" for="radio1"></label>
+              <input id="radio2" type="radio" name="estrellas" value="4">
+                <label class="fa fa-star" for="radio2"></label>
+              <input id="radio3" type="radio" name="estrellas" value="3">
+                <label class="fa fa-star" for="radio3"></label>
+              <input id="radio4" type="radio" name="estrellas" value="2">
+                <label class="fa fa-star" for="radio4"></label>
+              <input id="radio5" type="radio" name="estrellas" value="1">
+                <label class="fa fa-star" for="radio5"></label>
+            </p>
+          </div>
+            <input type="button" class="btn btn-primary" id="btnComentar" onclick="comentar()" value="COMENTAR">
+            <!--BOTON PARA PODER COMENTAR LLAMA A LA FUNCION COMENTAR()-->
+          </div>
+        </div>
+      </form>
     </div>
-  </div>
+  </main>
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-right">
