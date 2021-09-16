@@ -2,7 +2,6 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 let comentariosCargados = [];
-const hoy = new Date();
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCT_INFO_URL).then(function(resultObj){//hago un getJSONData de la info de productos
         if (resultObj.status === "ok")
@@ -121,13 +120,15 @@ function comentar(){//FUNCION PARA ARMAR UN COMENTARIO EN FORMA DE OBJETO Y AGRE
         "score":$("input:radio[name=estrellas]:checked").val(),
         "description":$("#newComment").val(),
         "user":sessionStorage.getItem("Usuario"),
-        "dateTime": Fecha(hoy)
+        "dateTime": Fecha()
     }
     comentariosCargados.push(nuevoComentario);
-    mostrarComentarios()
+    mostrarComentarios();
+    $("#formulario").trigger("reset");
 }
-function Fecha(fecha){//FUNCION QUE DEVUELVE UN STRING ARMADO CON LA FECHA EN EL FORMATO DESEADO
-    return `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()} ${fecha.getHours()}:${fecha.getMinutes()}:${fecha.getSeconds()}`;
+function Fecha(){//FUNCION QUE DEVUELVE UN STRING ARMADO CON LA FECHA EN EL FORMATO DESEADO
+    let hoy = new Date();
+    return `${hoy.getFullYear().toString().padStart(2,"0")}-${(hoy.getMonth() + 1).toString().padStart(2,"0")}-${hoy.getDate().toString().padStart(2,"0")} ${hoy.getHours().toString().padStart(2,"0")}:${hoy.getMinutes().toString().padStart(2,"0")}:${hoy.getSeconds().toString().padStart(2,"0")}`;
 }
 
 
