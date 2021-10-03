@@ -120,15 +120,16 @@ function comentar(){//FUNCION PARA ARMAR UN COMENTARIO EN FORMA DE OBJETO Y AGRE
         "score":$("input:radio[name=estrellas]:checked").val(),
         "description":$("#newComment").val(),
         "user":sessionStorage.getItem("Usuario"),
-        "dateTime": Fecha()
+        "dateTime": fecha()
     }
     comentariosCargados.push(nuevoComentario);
     mostrarComentarios();
     $("#formulario").trigger("reset");
 }
-function Fecha(){//FUNCION QUE DEVUELVE UN STRING ARMADO CON LA FECHA EN EL FORMATO DESEADO
+function fecha(){//FUNCION QUE DEVUELVE UN STRING ARMADO CON LA FECHA EN EL FORMATO DESEADO
     let hoy = new Date();
     return `${hoy.getFullYear().toString().padStart(2,"0")}-${(hoy.getMonth() + 1).toString().padStart(2,"0")}-${hoy.getDate().toString().padStart(2,"0")} ${hoy.getHours().toString().padStart(2,"0")}:${hoy.getMinutes().toString().padStart(2,"0")}:${hoy.getSeconds().toString().padStart(2,"0")}`;
 }
+
 
 

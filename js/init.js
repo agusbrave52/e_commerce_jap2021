@@ -50,3 +50,8 @@ document.addEventListener("DOMContentLoaded", function(e){
     window.location.href = "index.html"
   }
 })
+
+function cerrarSesion(){
+  sessionStorage.removeItem("Usuario");
+  window.location.href = "./index.html";
+}
