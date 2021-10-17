@@ -1,0 +1,25 @@
+{
+  "articles": [
+    {
+      "name": "Pino de olor para el auto",
+      "count": 2,
+      "unitCost": 100,
+      "currency": "UYU",
+      "src": "img/tree1.jpg"
+    },
+    {
+      "name": "Tupper",
+      "count": 3,
+      "unitCost": 12,
+      "currency": "USD",
+      "src": "img/tupper.jpg"
+    },
+    {
+      "name": "Tacita de Gato",
+      "count": 2,
+      "unitCost": 140,
+      "currency": "UYU",
+      "src": "img/tacita.jpg"
+    }
+  ]
+}

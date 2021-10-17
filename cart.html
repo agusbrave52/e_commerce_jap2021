@@ -2,75 +2,125 @@
 <!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
 <html lang="en">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <title>eMercado - Todo lo que busques está aquí</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>eMercado - Todo lo que busques está aquí</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
-    }
-  </style>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
-  <link href="css/dropzone.css" rel="stylesheet">
-</head>
 
-<body>
-  <nav class="site-header sticky-top py-1 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="home.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <div class="dropdown">
-        <span class="btn btn-dark dropdown-toggle py-2" role="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-        <div class="dropdown-menu" aria-labelledby="nombreUsuario">
-          <a class="dropdown-item" href="cart.html">Mi carrito</a>
-          <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
-          <a class="dropdown-item" href="index.html" onclick="cerrarSesion()">Cerrar sesion</a>
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/dropzone.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="site-header sticky-top py-1 bg-dark">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2 d-none d-md-inline-block" href="home.html">Inicio</a>
+        <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
+        <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
+        <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
+        <div class="dropdown">
+          <span class="btn btn-dark dropdown-toggle py-2" role="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+          <div class="dropdown-menu" aria-labelledby="nombreUsuario">
+            <a class="dropdown-item" href="cart.html">Mi carrito</a>
+            <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
+            <a class="dropdown-item" href="index.html" onclick="cerrarSesion()">Cerrar sesion</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container p-5">
+      
+      <div class="row">
+        <div class="col" id="carrito-table">
+        </div>
+        <div class="col-3 border border-left-0 text-center">
+          <div class="row">
+            <h5 class="p-2 w-100 border border-top-0 border-left-0 border-right-0">Resumen de Compra</h5>
+          </div>
+            <div class="col text-right">
+              <p>Subtotal: <span id="txtSub"></span></p>
+              <p>Tipo de envio: <span id="txtTipoEnvio"></span></p>
+              <p>Costo de envio: <span id="txtCostoEnvio"></span></p>
+              <p>Total: <span id="txtTotal"></span></p>
+              <div class="d-flex justify-content-end">
+                <input type="checkbox" checked onchange="cambiarMoneda(this.checked)" data-toggle="toggle" data-on="UYU" data-off="USD" data-onstyle="success" data-offstyle="warning">
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row justify-content-end p-2 border">
+        <div class="col">
+          <div class="form-group">
+            <h4>Datos de envio </h4>
+            <label for="direccion">Direccion: </label>  
+            <input class="form-control" type="text" name="direccion" placeholder="Calle, numero de puerta, apto o piso">
+          </div>
+          <div class="form-group">
+            <label for="tel">Telefono de contacto: </label>
+            <input class="form-control" type="text" name="tel" placeholder='"094123456"'>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-5">
+              <label for="ciudad">Ciudad: </label>
+              <input class="form-control" type="text" name="ciudad" placeholder='Montevideo...'>
+            </div>
+            <div class="form-group col-4">
+              <label for="pais">Pais: </label>
+              <input class="form-control" type="text" name="pais" placeholder='Uruguay...'>
+            </div>
+            <div class="form-group col-3">
+              <label for="cp">Codigo postal: </label>
+              <input class="form-control" type="text" name="cp" placeholder='11700...'>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <form action="" class="d-flex flex-column">
+            <h3>Tipo de Envio</h3>
+            <label for="envio1"><input class="border" type="radio" name="envio" id="envio1" value="Premium" onchange="updateTipoEnvio()" checked> Premium (2-5 dias) - Costo del 15% extra</label>
+            <label for="envio2"><input class="border" type="radio" name="envio" id="envio2" value="Express" onchange="updateTipoEnvio()"> Express (6-9 dias) - Costo del 7% extra</label>
+            <label for="envio3"><input class="border" type="radio" name="envio" id="envio3" value="Standard" onchange="updateTipoEnvio()"> Standard (12-15 dias) - Costo del 5% extra</label>
+          </form>
         </div>
       </div>
     </div>
-  </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 17/10/2021) y Entrega 7 (Fecha de entrega: 14/11/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <div id="spinner-wrapper">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  </div>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <script src="js/jquery-3.4.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/dropzone.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
-</body>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/dropzone.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+  </body>
 
 </html>
