@@ -44,7 +44,7 @@ var getJSONData = function(url){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-  let traerUsuario = sessionStorage.getItem("Usuario");//traigo nombre de usuario
+  let traerUsuario = localStorage.getItem("Usuario");//traigo nombre de usuario
   document.getElementById("nombreUsuario").innerHTML = "Usuario: " + traerUsuario;//muestro el usuario en la barra de navegacion
   if(traerUsuario == null){//si no esta definido el usuario redirecciono a la pagina de login "index.html"
     window.location.href = "index.html"
@@ -52,6 +52,6 @@ document.addEventListener("DOMContentLoaded", function(e){
 })
 
 function cerrarSesion(){
-  sessionStorage.removeItem("Usuario");
+  localStorage.clear();
   window.location.href = "./index.html";
 }

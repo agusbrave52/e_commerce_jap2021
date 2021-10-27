@@ -51,11 +51,35 @@
     </div>
   </nav>
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 6 (Fecha de entrega: 31/10/2021).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <div class="row d-flex justify-content-center">
+      <img width="30%" id="imgPerfil" class="rounded-circle" src="" alt="Sin imagen de perfil">
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="txtName">Nombre:</label>
+        <input type="text" class="form-control" id="txtName">
+        <label for="txtEdad">Edad:</label>
+        <input type="text" class="form-control" id="txtEdad">
+        <label for="txtEmail">Email:</label>
+        <input type="email" class="form-control" id="txtEmail">
+      </div>
+      <div class="col">
+        <label for="txtLsname">Apellido:</label>
+        <input type="text" class="form-control" id="txtLsname">
+        <label for="txtTel">Telefono:</label>
+        <input type="text" class="form-control" id="txtTel">
+        <label for="slcImagen" class="text-truncate mb-0">Imagen de perfil:</label>
+        <div class="input-group">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="slcImagen">
+            <label class="custom-file-label" for="slcImagen">Seleccionar...</label>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+      <button class="btn btn-primary" id="btnGuardar">Guardar</button>
     </div>
   </div>
   <footer class="text-muted bg-light">

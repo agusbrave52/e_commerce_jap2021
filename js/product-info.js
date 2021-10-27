@@ -119,7 +119,7 @@ function comentar(){//FUNCION PARA ARMAR UN COMENTARIO EN FORMA DE OBJETO Y AGRE
     let nuevoComentario = {
         "score":$("input:radio[name=estrellas]:checked").val(),
         "description":$("#newComment").val(),
-        "user":sessionStorage.getItem("Usuario"),
+        "user":localStorage.getItem("Usuario"),
         "dateTime": fecha()
     }
     comentariosCargados.push(nuevoComentario);
