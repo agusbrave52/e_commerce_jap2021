@@ -2,7 +2,9 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
-
+    if(localStorage.getItem("Usuario")){
+        window.location = "home.html"
+    }
 });
 function loguear() { // Creo la funcion para poder loguear() para terminar de verificar y loguearse
     let usuario = document.getElementById("usuario"); //traigo datos del input usuario
