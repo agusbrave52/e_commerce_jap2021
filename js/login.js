@@ -3,7 +3,7 @@
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
     if(localStorage.getItem("Usuario")){
-        window.location = "home.html"
+        window.location = "home.html";
     }
 });
 function loguear() { // Creo la funcion para poder loguear() para terminar de verificar y loguearse
