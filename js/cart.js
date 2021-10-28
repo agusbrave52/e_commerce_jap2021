@@ -19,19 +19,24 @@ function mostrarCarrito(){//Creo funcion para mostrar la lista de los articulos 
       let costo = articulos[i].unitCost * articulos[i].count;//el costo lo calculo con el costo de unidad por la cantidad 
       htmlAppend +=`
       <div class="row carritoElem">
-        <div class="d-flex col-2 border justify-content-center ">
-          <img src="${articulos[i].src}" alt="" class="w-100">
+        <div class="d-flex col-2 justify-content-center" id="imagen">
+          <img src="${articulos[i].src}" alt="" width="100%" height="100%">
         </div>
-        <div class="d-flex col border">
-          <span class="align-self-center">${articulos[i].name}</span>
-        </div>
-        <div class="d-flex col border text-center">
-          <span class="align-self-center">Cantidad:</span><input class="form-control mt-4 mb-4 ml-1 col" name="${i}"  type="number" min="1" value="${articulos[i].count}" onchange="updateCarrito(this.value, this.name)">
-        </div>
-        <div class="d-flex col border">
-          <span class="align-self-center costoXcantidad">$${costo} ${articulos[i].currency}</span>
+        <div class="d-flex col">
+          <ul class="p-0 w-100">
+            <li class="carrito">
+              <span class="align-self-center">${articulos[i].name}</span>
+            </li>
+            <li class="carrito mt-1 d-inline-flex">
+              <span class="align-self-center">Cantidad:</span><input class="form-control mt-4 mb-4 ml-1 col" name="${i}"  type="number" min="1" value="${articulos[i].count}" onchange="updateCarrito(this.value, this.name)">
+            </li>
+            <li class="carrito d-flex justify-content-end">
+              <h3 class="costoXcantidad">$${costo} ${articulos[i].currency}</h3>
+            </li>
+          </ul>
         </div>
       </div>
+      <hr>
       `//armo el html necesario para que se repita en la lista
       document.getElementById("carrito-table").innerHTML = htmlAppend;
   }
