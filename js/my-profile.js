@@ -2,7 +2,9 @@
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function (e) {
+  if(localStorage.getItem("imgPerfil") != null){
     $("#imgPerfil").attr("src", localStorage.getItem("imgPerfil"))
+  }
     let usuario = JSON.parse(localStorage.getItem("infoUsuario"))
     $("#txtName")[0].value = usuario.Nombre;
     $("#txtLsname")[0].value = usuario.Apellido;
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 function readerURL(inputImg) {
     if (inputImg.files && inputImg.files[0]) { //Reviso que el inputImg tenga contenido
       var reader = new FileReader(); //Leemos el contenido
-      reader.onload = function(e) { 
+      reader.onloadend = function(e) { 
         $('#imgPerfil').attr('src', e.target.result);//Al cargar el contenido lo pasamos como atributo de la imagen de arriba
       }
       reader.readAsDataURL(inputImg.files[0]);//lee el archivo 

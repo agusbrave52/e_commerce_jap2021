@@ -6,6 +6,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="71865652115-g54ebjlchcg0gt004978789dcktd1jjh.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <title>eMercado - Todo lo que busques está aquí</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
@@ -102,8 +105,9 @@
               <p id="msContrasena"></p>
               <!--creo donde ingresar contraseña-->
             </div>
-            <div class="form-group">
+            <div class="form-group d-inline-flex">
               <input type="button" class="btn btn-dark btn-md" value="Login" onclick="loguear()">
+              <div class="g-signin2 ml-3" data-onsuccess="onSignIn" data-theme="dark"></div>
               <!--creo un input para poder ingresar, con un onclick que me lleve a la funcion creada en login.js-->
             </div>
           </form>
