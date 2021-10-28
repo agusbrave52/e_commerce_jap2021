@@ -34,20 +34,33 @@
 </head>
 
 <body>
-  <nav class="site-header sticky-top py-1 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="home.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <div class="dropdown">
-        <span class="btn btn-dark dropdown-toggle py-2" role="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
-        <div class="dropdown-menu" aria-labelledby="nombreUsuario">
-          <a class="dropdown-item" href="cart.html">Mi carrito</a>
-          <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
-          <a class="dropdown-item" href="index.html" onclick="cerrarSesion()">Cerrar sesion</a>
-        </div>
-      </div>
+  <nav class="navbar navbar-expand-md site-header sticky-top py-1 bg-dark">
+    <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav w-100 justify-content-around">
+        <li class="nav-item active">
+          <a class="nav-link" href="home.html">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="categories.html">Categorías</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products.html">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="sell.html">Vender</a>
+        </li>
+        <li class="nav-item dropdown">
+          <span class="btn btn-dark dropdown-toggle" role="button" id="nombreUsuario" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+          <div class="dropdown-menu" aria-labelledby="nombreUsuario">
+            <a class="dropdown-item" href="cart.html">Mi carrito</a>
+            <a class="dropdown-item" href="my-profile.html">Mi perfil</a>
+            <a class="dropdown-item" href="index.html" onclick="cerrarSesion()">Cerrar sesion</a>
+          </div>
+        </li>
+      </ul>
     </div>
   </nav>
   <div class="container">

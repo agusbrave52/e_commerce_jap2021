@@ -42,5 +42,4 @@ function onSignIn(googleUser) {
     console.log("ID Token: " + id_token);
     document.getElementById("usuario").value = profile.getEmail();
     document.getElementById("contrasena").value = "123456";
-    document.getElementById("entrar").click();
-  }
+}
