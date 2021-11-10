@@ -2,6 +2,7 @@ let articulos = [];
 let moneda;
 let subtotal = 0;
 let costoEnvio = 0;
+let validacionModal;
 document.addEventListener("DOMContentLoaded", function(e){ //hago un fetch para traer los articulos del carrito y ejecuto las funciones creadas 
   getJSONData("./generated.json").then(function(response){
     if(response.status === "ok"){
@@ -12,6 +13,15 @@ document.addEventListener("DOMContentLoaded", function(e){ //hago un fetch para 
       cambiarMoneda(true)
     }
   })
+  if(!document.forms["formModal"]["tarjetaC"].checked || !document.forms["formModal"]["tranferencia"].checked){
+    document.forms["formModal"]["numT"].setAttribute("disabled",true);
+    document.forms["formModal"]["venc"].setAttribute("disabled",true);
+    document.forms["formModal"]["codSegu"].setAttribute("disabled",true);
+    document.forms["formModal"]["numCuenta"].setAttribute("disabled",true);
+    $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
+    $("#txtValidacion").addClass("bg-danger text-light p-1")
+    validacionModal = false;
+  }
 });
 function mostrarCarrito(){//Creo funcion para mostrar la lista de los articulos del carrito
   let htmlAppend = "";
@@ -19,8 +29,8 @@ function mostrarCarrito(){//Creo funcion para mostrar la lista de los articulos 
       let costo = articulos[i].unitCost * articulos[i].count;//el costo lo calculo con el costo de unidad por la cantidad 
       htmlAppend +=`
       <div class="row carritoElem">
-        <div class="d-flex col-2 justify-content-center" id="imagen">
-          <img src="${articulos[i].src}" alt="" width="100%" height="100%">
+        <div class="col-2 text-center" id="imagen">
+          <img src="${articulos[i].src}" alt="" class="img-fluid">
         </div>
         <div class="d-flex col">
           <ul class="p-0 w-100">
@@ -103,3 +113,41 @@ function cambiarMoneda(mon){// creo un funcion para cambiar la moneda de los art
   updateSubtotal()
   updateTipoEnvio()
 }
+function cambiarTexto(){
+  if($("#tarjetaC")[0].checked){
+    $("#FPtxt")[0].innerHTML = "💳Tarjeta de credito "
+    document.forms["formModal"]["numT"].removeAttribute("disabled");
+    document.forms["formModal"]["venc"].removeAttribute("disabled");
+    document.forms["formModal"]["codSegu"].removeAttribute("disabled");
+    document.forms["formModal"]["numCuenta"].setAttribute("disabled",true);
+  }
+  if($("#transferencia")[0].checked){
+    $("#FPtxt")[0].innerHTML = "💵Tranferencia bancaria "
+    document.forms["formModal"]["numT"].setAttribute("disabled",true);
+    document.forms["formModal"]["venc"].setAttribute("disabled",true);
+    document.forms["formModal"]["codSegu"].setAttribute("disabled",true);
+    document.forms["formModal"]["numCuenta"].removeAttribute("disabled");
+  }
+}
+// function validarModal(){
+//   if($("#tarjetaC")[0].checked && document.forms["formModal"]["numT"].value != "" && document.forms["formModal"]["venc"].value != "" && document.forms["formModal"]["codSegu"].value != ""){
+
+//   }
+// }
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();

@@ -123,6 +123,156 @@
           <label for="envio3"><input class="border" type="radio" name="envio" id="envio3" value="Standard" onchange="updateTipoEnvio()"> Standard (12-15 dias) - Costo del 5% extra</label>
         </form>
       </div>
+      <div class="row border py-3">
+        <div class="col">
+          <h3>Forma de pago</h3>
+          <span id="FPtxt">No ha seleccionado forma de pago </span><a href="" data-toggle="modal" data-target="#modalFP">Seleccionar</a>
+        </div>
+        <div class='col'>
+          <span id="txtValidacion">METODO DE PAGO VALIDADO</span>
+        </div>
+      </div>
+      <!-- #region MODAL --> 
+      <div class="modal fade" id="modalFP" tabindex="-1" role="dialog" aria-labelledby="modalFPlabel" aria-hidden="true">
+        <div class="modal-dialog-centered modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalFPlabel">Forma de pago</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <form action="" id="formModal" class="needs-validation" novalidate>
+                  <label for="tarjetaC" id="lblTC"><input type="radio" name="tipoFP" id="tarjetaC" onchange="cambiarTexto()"> Tarjeta de Credito</label>
+                  <hr>
+                  <div class="form-row">
+                    <div class='col'>
+                      <label for="numT">Numero de tarjeta:</label>
+                      <input type="text" name="" id="numT" class="form-control" required>
+                      <div class="valid-feedback">
+                        Valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Porfavor rellena este campo.
+                      </div>
+                    </div>
+                    <div class='col'>
+                      <label for="codSegu">Codigo de Seguridad:</label>
+                      <input type="text" name="" id="codSegu" class="form-control" required>
+                      <div class="valid-feedback">
+                        Valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Porfavor rellena este campo.
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class='form-row'>
+                    <div class='col'>
+                      <label for="venc">Vencimiento:</label>
+                      <input type="text" name="" id="venc" class="form-control" required>
+                      <div class="valid-feedback">
+                        Valido!
+                      </div>
+                      <div class="invalid-feedback">
+                        Porfavor rellena este campo.
+                      </div>
+                    </div>
+                  </div>
+                  <label for="transferencia" class="mt-3"><input type="radio" name="tipoFP" id="transferencia" onchange="cambiarTexto()"> Transferencia Bancaria</label>
+                  <hr>
+                  <div class='row'>
+                    <div class='col'>
+                      <label for="numCuenta">Numero de Cuenta:</label>
+                      <input type="text" name="" id="numCuenta" class="form-control">
+                    </div>
+                    <div class='col'></div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" type="submit">Guardar Cambios</button>
+                  </div>
+              </form>
+              <form class="needs-validation" novalidate>
+                <div class="form-row">
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom01">First name</label>
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustom02">Last name</label>
+                    <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                    <div class="valid-feedback">
+                      Looks good!
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <label for="validationCustomUsername">Username</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                      </div>
+                      <input type="text" class="form-control" id="validationCustomUsername" placeholder="Username" aria-describedby="inputGroupPrepend" required>
+                      <div class="invalid-feedback">
+                        Please choose a username.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationCustom03">City</label>
+                    <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
+                    <div class="invalid-feedback">
+                      Please provide a valid city.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationCustom04">State</label>
+                    <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
+                    <div class="invalid-feedback">
+                      Please provide a valid state.
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationCustom05">Zip</label>
+                    <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
+                    <div class="invalid-feedback">
+                      Please provide a valid zip.
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                      Agree to terms and conditions
+                    </label>
+                    <div class="invalid-feedback">
+                      You must agree before submitting.
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit form</button>
+              </form>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- endregion -->
+      <div class='row'>
+        <div class='col text-center'>
+          <button class="btn btn-primary w-100">FINALIZAR COMPRA</button>
+        </div>
+      </div>
     </div>
     <div id="spinner-wrapper">
       <div class="lds-ring">
