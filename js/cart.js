@@ -2,7 +2,11 @@ let articulos = [];
 let moneda;
 let subtotal = 0;
 let costoEnvio = 0;
-let validacionModal;
+let validacionModal = {
+  validado: false,
+  metodo: "null"
+};
+let datosValidados = false;
 document.addEventListener("DOMContentLoaded", function(e){ //hago un fetch para traer los articulos del carrito y ejecuto las funciones creadas 
   getJSONData("./generated.json").then(function(response){
     if(response.status === "ok"){
@@ -13,14 +17,15 @@ document.addEventListener("DOMContentLoaded", function(e){ //hago un fetch para 
       cambiarMoneda(true)
     }
   })
-  if(!document.forms["formModal"]["tarjetaC"].checked || !document.forms["formModal"]["tranferencia"].checked){
+  if(!document.forms["formModal"].tarjetaC.checked && !document.forms["formModal"].transferencia.checked){
     document.forms["formModal"]["numT"].setAttribute("disabled",true);
     document.forms["formModal"]["venc"].setAttribute("disabled",true);
     document.forms["formModal"]["codSegu"].setAttribute("disabled",true);
     document.forms["formModal"]["numCuenta"].setAttribute("disabled",true);
     $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
-    $("#txtValidacion").addClass("bg-danger text-light p-1")
-    validacionModal = false;
+    $("#txtValidacion").addClass("bg-danger")
+    validacionModal.validado = false
+    validacionModal.metodo = "null";
   }
 });
 function mostrarCarrito(){//Creo funcion para mostrar la lista de los articulos del carrito
@@ -40,6 +45,9 @@ function mostrarCarrito(){//Creo funcion para mostrar la lista de los articulos 
             <li class="carrito mt-1 d-inline-flex">
               <span class="align-self-center">Cantidad:</span><input class="form-control mt-4 mb-4 ml-1 col" name="${i}"  type="number" min="1" value="${articulos[i].count}" onchange="updateCarrito(this.value, this.name)">
             </li>
+            <button type="button" class="close" name="${i}" onclick="eliminarArticulo(this.name)">
+              <span>&times;</span>
+            </button>
             <li class="carrito d-flex justify-content-end">
               <h3 class="costoXcantidad">$${costo} ${articulos[i].currency}</h3>
             </li>
@@ -120,6 +128,13 @@ function cambiarTexto(){
     document.forms["formModal"]["venc"].removeAttribute("disabled");
     document.forms["formModal"]["codSegu"].removeAttribute("disabled");
     document.forms["formModal"]["numCuenta"].setAttribute("disabled",true);
+    if(validacionModal.validado && validacionModal.metodo == "transferencia"){
+      validacionModal.validado = false;
+      validacionModal.metodo = "null";
+      $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
+      $("#txtValidacion").addClass("bg-danger");
+      $("#txtValidacion").removeClass("bg-success");
+    }
   }
   if($("#transferencia")[0].checked){
     $("#FPtxt")[0].innerHTML = "💵Tranferencia bancaria "
@@ -127,27 +142,102 @@ function cambiarTexto(){
     document.forms["formModal"]["venc"].setAttribute("disabled",true);
     document.forms["formModal"]["codSegu"].setAttribute("disabled",true);
     document.forms["formModal"]["numCuenta"].removeAttribute("disabled");
+    if(validacionModal.validado && validacionModal.metodo == "tarjeta de credito"){
+      validacionModal.validado = false;
+      validacionModal.metodo = "null";
+      $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
+      $("#txtValidacion").addClass("bg-danger");
+      $("#txtValidacion").removeClass("bg-success");
+    }
   }
 }
-// function validarModal(){
-//   if($("#tarjetaC")[0].checked && document.forms["formModal"]["numT"].value != "" && document.forms["formModal"]["venc"].value != "" && document.forms["formModal"]["codSegu"].value != ""){
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Trae todos los forms que necesiten validacion de bootstrap
+    var forms = document.getElementsByClassName('needs-validation');
+    // evito que se termine de ejecutar el submit
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
+          $("#txtValidacion").addClass("bg-danger")
+          $("#txtValidacion").removeClass("bg-success")
+          validacionModal.validado = false;
+          validacionModal.metodo = "null"
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        else{
+          event.preventDefault();
+          event.stopPropagation();
+          form.classList.add('was-validated');
+          $("#txtValidacion")[0].innerHTML = "METODO DE PAGO VALIDADO";
+          $("#txtValidacion").addClass("bg-success")
+          $("#txtValidacion").removeClass("bg-danger")
+          validacionModal.validado = true;
+          let metodosDePago = document.getElementsByName("tipoFP");
+          metodosDePago.forEach(function(element){
+            if(element.checked){
+              validacionModal.metodo = element.dataset.metodos
+            }
+          })
+        }
+        if(!document.forms["formModal"].tarjetaC.checked && !document.forms["formModal"].transferencia.checked){
+          $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
+          $("#txtValidacion").addClass("bg-danger")
+          $("#txtValidacion").removeClass("bg-success")
+          validacionModal.validado = false;
+          validacionModal.metodo = "null"
+        }
+      }, false);
+    });
+  }, false);
+})();
 
-//   }
-// }
 (function() {
   'use strict';
   window.addEventListener('load', function() {
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.getElementsByClassName('needs-validation');
+    var forms = document.getElementsByClassName('needs-validation2');
     // Loop over them and prevent submission
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();
+          datosValidados = false
+          form.classList.add('was-validated');
         }
-        form.classList.add('was-validated');
+        else{
+          event.preventDefault();
+          event.stopPropagation();
+          datosValidados = true
+          if(articulos.length > 0 && datosValidados && validacionModal.validado){
+            document.getElementById("todo").insertAdjacentHTML("beforeend",`
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Compra realizada con exito!</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            `)
+          }
+          form.classList.add('was-validated');
+        }
       }, false);
     });
   }, false);
 })();
+
+function eliminarArticulo(i){
+  articulos.splice(i,1)
+  if(articulos.length != 0){
+    mostrarCarrito()
+    updateSubtotal()
+    updateTipoEnvio()
+  }
+  else{
+    document.getElementById("todo").innerHTML = "<h1 class='text-center m-4'>No hay articulos en el carrito</h1><hr>";
+  }
+}
