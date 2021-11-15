@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function(e){ //hago un fetch para 
     $("#txtValidacion").addClass("bg-danger")
     validacionModal.validado = false
     validacionModal.metodo = "null";
+    document.getElementById("txtAlert").removeAttribute("hidden")
   }
 });
 function mostrarCarrito(){//Creo funcion para mostrar la lista de los articulos del carrito
@@ -134,6 +135,7 @@ function cambiarTexto(){
       $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
       $("#txtValidacion").addClass("bg-danger");
       $("#txtValidacion").removeClass("bg-success");
+      document.getElementById("txtAlert").removeAttribute("hidden")
     }
   }
   if($("#transferencia")[0].checked){
@@ -148,6 +150,7 @@ function cambiarTexto(){
       $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
       $("#txtValidacion").addClass("bg-danger");
       $("#txtValidacion").removeClass("bg-success");
+      document.getElementById("txtAlert").removeAttribute("hidden")
     }
   }
 }
@@ -163,6 +166,7 @@ function cambiarTexto(){
           $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
           $("#txtValidacion").addClass("bg-danger")
           $("#txtValidacion").removeClass("bg-success")
+          document.getElementById("txtAlert").removeAttribute("hidden")
           validacionModal.validado = false;
           validacionModal.metodo = "null"
           event.preventDefault();
@@ -176,6 +180,7 @@ function cambiarTexto(){
           $("#txtValidacion").addClass("bg-success")
           $("#txtValidacion").removeClass("bg-danger")
           validacionModal.validado = true;
+          document.getElementById("txtAlert").setAttribute("hidden", true)
           let metodosDePago = document.getElementsByName("tipoFP");
           metodosDePago.forEach(function(element){
             if(element.checked){
@@ -187,6 +192,7 @@ function cambiarTexto(){
           $("#txtValidacion")[0].innerHTML = "METODO DE PAGO NO VALIDADO";
           $("#txtValidacion").addClass("bg-danger")
           $("#txtValidacion").removeClass("bg-success")
+          document.getElementById("txtAlert").removeAttribute("hidden")
           validacionModal.validado = false;
           validacionModal.metodo = "null"
         }
@@ -198,9 +204,9 @@ function cambiarTexto(){
 (function() {
   'use strict';
   window.addEventListener('load', function() {
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    // Trae todos los forms que necesiten validacion de bootstrap
     var forms = document.getElementsByClassName('needs-validation2');
-    // Loop over them and prevent submission
+    // evito que se termine de ejecutar el submit
     var validation = Array.prototype.filter.call(forms, function(form) {
       form.addEventListener('submit', function(event) {
         if (form.checkValidity() === false) {
@@ -213,7 +219,7 @@ function cambiarTexto(){
           event.preventDefault();
           event.stopPropagation();
           datosValidados = true
-          if(articulos.length > 0 && datosValidados && validacionModal.validado){
+          if(datosValidados && validacionModal.validado){
             document.getElementById("todo").insertAdjacentHTML("beforeend",`
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <strong>Compra realizada con exito!</strong>
@@ -222,6 +228,9 @@ function cambiarTexto(){
               </button>
             </div>
             `)
+          }
+          else{
+            document.getElementById("txtAlert").removeAttribute("hidden")
           }
           form.classList.add('was-validated');
         }
